@@ -16,3 +16,6 @@ jobs:
       run: |
         curl -fsSL https://raw.githubusercontent.com/ZupIT/horusec/main/deployments/scripts/install.sh | bash -s latest-beta
         horusec start -p="./" -e="false"
+
+    - name: "Imagen de Docker"
+      run: docker build -t prueba ../../   
