@@ -18,7 +18,7 @@ jobs:
         horusec start -p="./" -e="false"
 
   name: Push Docker image to Docker Hub
-    runs-on: ubuntu-latest
+  runs-on: ubuntu-latest
     steps:
     - name: Check out the repo
       uses: actions/checkout@v4
@@ -43,4 +43,3 @@ jobs:
         push: true
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
-      
