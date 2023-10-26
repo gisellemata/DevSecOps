@@ -17,7 +17,7 @@ jobs:
         curl -fsSL https://raw.githubusercontent.com/ZupIT/horusec/main/deployments/scripts/install.sh | bash -s latest-beta
         horusec start -p="./" -e="false"
 
-    name: Push Docker image to Docker Hub
+  name: Push Docker image to Docker Hub
     runs-on: ubuntu-latest
     steps:
     - name: Check out the repo
@@ -43,3 +43,4 @@ jobs:
         push: true
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
+      
