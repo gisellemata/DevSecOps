@@ -49,13 +49,15 @@ jobs:
           docker images
 
       - name: "Contenedor Docker"
-        run: docker run -p 8080:80 -d --name Cocoro2 webgoat/test 
+        run: |
+             docker run -d --name Cocoro2 -p 127.0.0.1:8080:8080  webgoat/test 
+             echo "Up server..."
+             sleep 45
+             curl http://127.0.0.1:8080/WebGoat/login
+             docker container stop Cocoro2
+             docker container rm Cocoro2
 
-      - name: "Listar Contenedores Docker"
-        run: docker ps -a 
 
-      - name: "Correr Contenedor Docker"
-        run: docker start Cocoro2
         
 
      
