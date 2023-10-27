@@ -49,9 +49,13 @@ jobs:
           docker images
 
       - name: "Contenedor Docker"
-        run: |
-          docker run -d --name Cocoro2
-          docker ps -a 
+        run: docker run -p 8080:80 -d --name Cocoro2 webgoat/test 
+
+      - name: "Listar Contenedores Docker"
+        run: docker ps -a 
+
+      - name: "Correr Contenedor Docker"
+        run: docker start Cocoro2
         
 
      
