@@ -48,11 +48,12 @@ jobs:
           docker build -f Dockerfile . -t webgoat/test 
           docker images
 
-      - name: "Evaluar imagen"
-        run: | 
-          wget https://github.com/aquasecurity/trivy/releases/download/v0.18.3/trivy_0.18.3_Linux-64bit.deb
-          sudo dpkg -i trivy_0.18.3_Linux-64bit.deb 
-          trivy image webgoat/test
+      - name: Run Trivy vulnerability scanner in fs mode
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: 'fs'
+          scan-ref: '.'
+          trivy-config: trivy.yaml
 
       - name: "Contenedor Docker"
         run: |
