@@ -48,7 +48,7 @@ jobs:
           docker build -f Dockerfile . -t webgoat/test 
           docker images
 
-     - name: Run Trivy vulnerability scanner
+      - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@master
         with:
           image-ref: 'webgoat/test'
