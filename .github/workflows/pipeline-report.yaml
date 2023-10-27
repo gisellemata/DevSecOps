@@ -50,7 +50,7 @@ jobs:
 
       - name: "Contenedor Docker"
         run: |
-          docker run -d webgoat/test 
+          docker run -d --name Cocoro2
           docker ps -a 
         
 
