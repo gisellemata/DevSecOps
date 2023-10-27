@@ -52,18 +52,16 @@ jobs:
         run: | 
           wget https://github.com/aquasecurity/trivy/releases/download/v0.18.3/trivy_0.18.3_Linux-64bit.deb
           sudo dpkg -i trivy_0.18.3_Linux-64bit.deb 
-          trivy docker:webgoat/test
- 
-
+          trivy image docker:webgoat/test
 
       - name: "Contenedor Docker"
         run: |
-             docker run -d --name Cocoro2 -p 127.0.0.1:8080:8080  webgoat/test 
-             echo "Up server..."
-             sleep 45
-             curl http://127.0.0.1:8080/WebGoat/login
-             docker container stop Cocoro2
-             docker container rm Cocoro2
+          docker run -d --name Cocoro2 -p 127.0.0.1:8080:8080  webgoat/test 
+          echo "Up server..."
+          sleep 45
+          curl http://127.0.0.1:8080/WebGoat/login
+          docker container stop Cocoro2
+          docker container rm Cocoro2
 
 
         
