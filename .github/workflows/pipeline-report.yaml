@@ -49,7 +49,9 @@ jobs:
           docker images
 
       - name: "Contenedor Docker"
-        run: docker container start prueba   
+        run: |
+          docker run -d webgoat/test 
+          docker start webgoat/test 
 
      
              
