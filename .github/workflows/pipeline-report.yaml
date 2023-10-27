@@ -48,6 +48,9 @@ jobs:
           docker build -f Dockerfile . -t webgoat/test 
           docker images
 
+      - name: "Contenedor Docker"
+        run: docker container start webgoat/test   
+
      
              
 
