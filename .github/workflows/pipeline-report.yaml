@@ -51,7 +51,8 @@ jobs:
       - name: "Contenedor Docker"
         run: |
           docker run -d webgoat/test 
-          docker start webgoat/test 
+          docker ps -a 
+        
 
      
              
