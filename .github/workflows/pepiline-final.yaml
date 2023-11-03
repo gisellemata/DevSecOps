@@ -50,3 +50,5 @@ jobs:
           terraform -chdir=./Terraform/ plan -out planB
           terraform -chdir=./Terraform/ apply planB
           terraform -chdir=./Terraform/ destroys
+
+       
