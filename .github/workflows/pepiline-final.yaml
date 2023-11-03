@@ -51,7 +51,7 @@ jobs:
           terraform apply planB >> results_planB.txt
           ip_webgoat=$(cat results_planB.txt | grep "My_ip= " | awk '{ print $3 }' | sed 's/*//g')
           sed -i "s/IP/$ip_webgoat/g" ../Ansible/inventario
-          cat: Ansible/inventario
+          cat ../Ansible/inventario
           echo $ip_webgoat
 
 
