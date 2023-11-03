@@ -49,6 +49,6 @@ jobs:
           terraform -chdir=./Terraform/ validate
           terraform -chdir=./Terraform/ plan -out planB
           terraform -chdir=./Terraform/ apply planB
-          terraform -chdir=./Terraform/ destroys
+          terraform -chdir=./Terraform/ destroy
 
        
