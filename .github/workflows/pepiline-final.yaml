@@ -49,7 +49,7 @@ jobs:
           terraform init
           terraform plan -out planB
           terraform apply planB >> results_planB.txt
-          ip webgoat=$(cat results_planB.txt | grep "My_ip= " | awk '{ print $3 }' | sed 's/"//g')
+          ips_webgoat=$(cat results_planB.txt | grep "My_ip= " | awk '{ print $3 }' | sed 's/"//g')
           sed -i "s/IP/$ip_webgoat/g" ../Ansible/inventario
 
       - name: "Ejecutar ansible"
