@@ -35,3 +35,18 @@ jobs:
           aws-access-key-id: ${{ AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ AWS_REGION }}    
+
+      - name: "Cargar imagen a ECR"
+        run: |
+          aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/g3i6x0d5
+          docker build -t gisellemt .
+          docker tag gisellemt:latest public.ecr.aws/g3i6x0d5/gisellemt:latest
+          docker push public.ecr.aws/g3i6x0d5/gisellemt:latest
+
+      - name: "Aprovisionamiento de terraform"
+        run: |
+          terraform -chdir=./Terraform/ init
+          terraform -chdir=./Terraform/ validate
+          terraform -chdir=./Terraform/ plan -out planB
+          terraform -chdir=./Terraform/ apply planB
+          terraform -chdir=./Terraform/ destroy
