@@ -44,18 +44,18 @@ jobs:
           docker build -f Dockerfile . -t webgoat/test 
           docker images
 
-#      - name: Run Trivy vulnerability scanner 
-#        uses: aquasecurity/trivy-action@master
-#        with:
-#          image-ref: 'webgoat/test'
-#          timeout: 10m0s
-#          exit-code: '1'
-#          ignore-unfixed: true
-           format: 'sarif'
-           output: 'trivy-results.sarif'
-#          severity: 'CRITICAL,HIGH'
-#          scanners: vuln,secret,config
-#        continue-on-error: true       
+      - name: Run Trivy vulnerability scanner 
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: 'webgoat/test'
+          timeout: 10m0s
+          exit-code: '1'
+          ignore-unfixed: true
+          format: 'sarif'
+          output: 'trivy-results.sarif'
+          severity: 'CRITICAL,HIGH'
+          scanners: vuln,secret,config
+        continue-on-error: true       
 
       - name: "Configurar AWS Credentiales"
         uses: aws-actions/configure-aws-credentials@v1
