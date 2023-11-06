@@ -29,6 +29,17 @@ jobs:
           docker build -f Dockerfile . -t webgoat/test 
           docker images
 
+      - name: Run Trivy vulnerability scanner 
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: 'webgoat/test'
+          timeout: 10m0s
+          exit-code: '1'
+          ignore-unfixed: true
+          severity: 'CRITICAL,HIGH'
+          scanners: vuln,secret,config
+        continue-on-error: true       
+
       - name: "Configurar AWS Credentiales"
         uses: aws-actions/configure-aws-credentials@v1
         with:
@@ -54,7 +65,7 @@ jobs:
         with:
           directory: Terraform
           framework: terraform 
-          output_format: sarif
+          output_format: cli,sarif
           output_file_path: reports/reportes.sarif
         continue-on-error: true
 
@@ -81,7 +92,9 @@ jobs:
           sudo chmod 600 $HOME/key.pem
           export ANSIBLE_HOST_KEY_CHECKING=False
           ansible-playbook -i inventario server.yaml --become --private-key $HOME/key.pem
-        continue-on-error: true
+          echo "Up server..."
+          sleep 45
+        continue-on-error: true  
 
       - name: "Instalar Arachni"
         run: |
@@ -90,8 +103,9 @@ jobs:
  
       - name: "Encontrar IP"
         run: |
-          var_IP=$(docker inspect webgoat/test | grep "IPAddress" | tail -1 | cut -d '"' -f 4)
-          ./arachni-1.6.1.3-0.6.1.1/bin/arachni --check=* http://$var_IP:8080/WebGoat/login 
+          ip_webgoat=$(cat Terraform/results_planB.txt | grep "My_ip = " | awk '{ print $3 }' | sed 's/*//g'))
+          curl http://$ip_webgoat:8080/WebGoat/login
+          ./arachni-1.6.1.3-0.6.1.1/bin/arachni --check=* http://$ip_webgoat:8080/WebGoat/login 
 
       - name: "Tirar infra"
         run: |
