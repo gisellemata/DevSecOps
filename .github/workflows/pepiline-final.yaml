@@ -43,16 +43,34 @@ jobs:
           docker tag gisellemt:latest public.ecr.aws/g3i6x0d5/gisellemt:latest
           docker push public.ecr.aws/g3i6x0d5/gisellemt:latest
 
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.8
+
+      - name: Test with Checkov
+        id: checkov
+        uses: bridgecrewio/checkov-action@master
+        with:
+          directory: Terraform
+          framework: terraform 
+          output_format: sarif
+          output_file_path: reports/reportes.sarif
+        continue-on-error: true
+
       - name: "Aprovisionamiento de terraform"
         run: |
           cd Terraform
           terraform init
           terraform plan -out planB
+          terraform show -json planB | jq > planB.json
+          checkov -f planb.json
           terraform apply planB >> results_planB.txt
           ip_webgoat=$(cat results_planB.txt | grep "My_ip = " | awk '{ print $3 }' | sed 's/*//g')
           sed -i "s/IP/$ip_webgoat/g" ../Ansible/inventario
           cat ../Ansible/inventario
           echo $ip_webgoat
+
 
 
       - name: "Ejecutar ansible"
