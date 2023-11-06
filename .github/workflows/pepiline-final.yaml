@@ -32,7 +32,7 @@ jobs:
         with:
           project: 'WebGoat'
           path: '.'
-          format: 'sarif'
+          format: 'SARIF'
           out: 'reports'
 
       - name: "Verificar reporte"
