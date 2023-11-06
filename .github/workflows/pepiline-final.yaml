@@ -130,6 +130,16 @@ jobs:
           sarif_file: 'trivy-results.sarif'
           category: 'code'
 
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v2
+        with:
+          languages: ${{ matrix.language }}
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v2
+        with:
+          category: "/language:${{matrix.language}}"
+        continue-on-error: true  
+
       - name: "Tirar infra"
         run: |
           cd Terraform/
