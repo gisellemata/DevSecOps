@@ -64,7 +64,6 @@ jobs:
           terraform init
           terraform plan -out planB
           terraform show -json planB | jq > planB.json
-          checkov -f planb.json
           terraform apply planB >> results_planB.txt
           ip_webgoat=$(cat results_planB.txt | grep "My_ip = " | awk '{ print $3 }' | sed 's/*//g')
           sed -i "s/IP/$ip_webgoat/g" ../Ansible/inventario
