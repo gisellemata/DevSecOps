@@ -129,13 +129,13 @@ jobs:
         with:
           sarif_file: 'trivy-results.sarif'
           category: 'code'
-          
+
       - name: "Tirar infra"
         run: |
           cd Terraform/
           terraform plan -destroy -out plan
           terraform apply plan
-        
+         
     
 
        
