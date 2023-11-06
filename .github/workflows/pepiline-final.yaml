@@ -103,7 +103,7 @@ jobs:
  
       - name: "Encontrar IP"
         run: |
-          ip_webgoat=$(cat Terraform/results_planB.txt | grep "My_ip = " | awk '{ print $3 }' | sed 's/*//g')
+          ip_webgoat=$(cat Terraform/results_planB.txt | grep "My_ip = " | awk '{ print $3 }' | sed 's/"//g')
           curl http://$ip_webgoat:8080/WebGoat/login
           ./arachni-1.6.1.3-0.6.1.1/bin/arachni --check=* http://$ip_webgoat:8080/WebGoat/login 
 
