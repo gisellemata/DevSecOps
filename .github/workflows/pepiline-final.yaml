@@ -35,6 +35,12 @@ jobs:
           format: 'SARIF'
           out: 'reports'
 
+      - name: Upload SARIF report
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: ${{github.workspace}}/reports
+          checkout_path: ${{github.workspace}}/reports   
+
       - name: "Verificar reporte"
         run: ls -ltra reports 
          
