@@ -63,6 +63,8 @@ jobs:
         continue-on-error: true       
 
       - name: "Cargar reportes"
+        env: 
+          api_key: ${{ secrets.TOKEN }}
         run: |
           python3 "Codigo carga.py" -f ${{github.workspace}}/reports/dependency-check-report.xml -t "Dependency Check Scan"  
           python3 "Codigo carga.py" -f ./test.json -t "Trivy Scan" 
