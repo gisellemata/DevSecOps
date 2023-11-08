@@ -62,8 +62,8 @@ jobs:
 
       - name: "Cargar reportes"
         run: |
-          python3 "/home/kali/Lab-DSO/Codigo carga.py" -f /github/workspace/reports/dependency-check-report.xml -t "Dependecy Check" 
-          python3 "/home/kali/Lab-DSO/Codigo carga.py" -f /github/workspace/reports/webgoat/test.json -t "Trivy Scan" 
+          python3 "Codigo carga.py" -f /github/workspace/reports/dependency-check-report.xml -t "Dependecy Check Scan"  
+          python3 "Codigo carga.py" -f /github/workspace/reports/webgoat/test.json -t "Trivy Scan" 
 
       - name: "Configurar AWS Credentiales"
         uses: aws-actions/configure-aws-credentials@v1
