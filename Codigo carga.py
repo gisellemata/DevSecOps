@@ -3,7 +3,7 @@ import json
 import argparse
 import os
  
-api_key = os.environsecret ['secrets']
+api_key = os.environ['secret']
 api_url = 'http://18.218.244.166:8080/api/v2/{method}'
 
 def upload(file_report, type_scan): 
