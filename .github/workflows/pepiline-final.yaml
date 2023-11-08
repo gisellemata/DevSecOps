@@ -60,7 +60,8 @@ jobs:
           scanners: vuln,secret,config
           format: 'json'
           output: test.json
-        continue-on-error: true       
+        continue-on-error: true     
+          
 
       - name: "Cargar reportes"
         env: 
