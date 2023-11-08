@@ -32,14 +32,14 @@ jobs:
         with:
           project: 'WebGoat'
           path: '.'
-          format: 'SARIF'
+          format: 'XML'
           out: 'reports'
 
-      - name: Upload SARIF report
-        uses: github/codeql-action/upload-sarif@v2
-        with:
-          sarif_file: ${{github.workspace}}/reports
-          checkout_path: ${{github.workspace}}/reports   
+#      - name: Upload SARIF report
+#        uses: github/codeql-action/upload-sarif@v2
+#        with:
+#          sarif_file: ${{github.workspace}}/reportss
+#          checkout_path: ${{github.workspace}}/reports   
 
       - name: "Verificar reporte"
         run: ls -ltra reports 
@@ -59,6 +59,11 @@ jobs:
           severity: 'CRITICAL,HIGH'
           scanners: vuln,secret,config
         continue-on-error: true       
+
+      - name: "Cargar reportes"
+        run: |
+          python3 "/home/kali/Lab-DSO/Codigo carga.py" -f /github/workspace/reports/dependency-check-report.xml -t "Dependecy Check" 
+          python3 "/home/kali/Lab-DSO/Codigo carga.py" -f /github/workspace/reports/webgoat/test.json -t "Trivy Scan" 
 
       - name: "Configurar AWS Credentiales"
         uses: aws-actions/configure-aws-credentials@v1
@@ -127,24 +132,12 @@ jobs:
           curl http://$ip_webgoat:8080/WebGoat/login
           ./arachni-1.6.1.3-0.6.1.1/bin/arachni --check=* http://$ip_webgoat:8080/WebGoat/login 
 
-      - name: Run static analysis
-        uses: aquasecurity/trivy-action@master
-        with:
-          scan-type: 'fs'
-          security-checks: 'vuln,secret,config'
-          ignore-unfixed: true
-          format: 'sarif'
-          output: 'trivy-results.sarif'
-          severity: 'CRITICAL'
-
-      - name: Upload Trivy scan results to GitHub Security tab
-        uses: github/codeql-action/upload-sarif@v2
-        with:
-          sarif_file: 'trivy-results.sarif'
-          category: 'code'
+#      - name: Upload Trivy scan results to GitHub Security tab
+#        uses: github/codeql-action/upload-sarif@v2
+#        with:
+#          sarif_file: 'trivy-results.sarif'
+#          category: 'code'
   
-
-
       - name: "Tirar infra"
         run: |
           cd Terraform/
