@@ -66,8 +66,8 @@ jobs:
         env: 
           secret: ${{ secrets.TOKEN }}
         run: |
-          python3 "Codigo carga.py" -f ${{github.workspace}}/reports/dependency-check-report.xml -t "Dependency Check Scan" -l secrets.TOKEN 
-          python3 "Codigo carga.py" -f ./test.json -t "Trivy Scan" -l secrets.TOKEN
+          python3 "Codigo carga.py" -f ${{github.workspace}}/reports/dependency-check-report.xml -t "Dependency Check Scan" 
+          python3 "Codigo carga.py" -f ./test.json -t "Trivy Scan" 
 
       - name: "Configurar AWS Credentiales"
         uses: aws-actions/configure-aws-credentials@v1
