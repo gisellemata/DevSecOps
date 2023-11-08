@@ -41,8 +41,8 @@ jobs:
 #          sarif_file: ${{github.workspace}}/reportss
 #          checkout_path: ${{github.workspace}}/reports   
 
-      - name: "Verificar reporte"
-        run: ls -ltra reports 
+#      - name: "Verificar reporte"
+#        run: ls -ltra reports 
          
 
       - name: "Imagen Docker"
@@ -62,8 +62,8 @@ jobs:
 
       - name: "Cargar reportes"
         run: |
-          python3 "Codigo carga.py" -f /github/workspace/reports/dependency-check-report.xml -t "Dependecy Check Scan"  
-          python3 "Codigo carga.py" -f /github/workspace/reports/webgoat/test.json -t "Trivy Scan" 
+          python3 "Codigo carga.py" -f ${{github.workspace}}/reports/dependency-check-report.xml -t "Dependecy Check Scan"  
+          python3 "Codigo carga.py" -f ./test.json -t "Trivy Scan" 
 
       - name: "Configurar AWS Credentiales"
         uses: aws-actions/configure-aws-credentials@v1
