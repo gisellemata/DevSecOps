@@ -64,7 +64,7 @@ jobs:
 
       - name: "Cargar reportes"
         run: |
-          python3 "Codigo carga.py" -f ${{github.workspace}}/reports/dependency-check-report.xml -t "Dependecy Check Scan"  
+          python3 "Codigo carga.py" -f ${{github.workspace}}/reports/dependency-check-report.xml -t "Dependency Check Scan"  
           python3 "Codigo carga.py" -f ./test.json -t "Trivy Scan" 
 
       - name: "Configurar AWS Credentiales"
